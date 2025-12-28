@@ -1,0 +1,48 @@
+name: git2
+
+environment:
+  sdk: ^3.10.3
+
+dev_dependencies:
+  lints:
+
+dependencies:
+  archive: ^4.0.7
+  code_assets: ^1.0.0
+  hooks: ^1.0.0
+  http: ^1.6.0
+  logging: ^1.3.0
+  native_toolchain_cmake: ^0.2.2
+  path: ^1.9.1
+
+platforms:
+  android:
+  ios:
+
+ffigen:
+  output: lib/git2.dart
+  headers:
+    entry-points:
+      - /opt/libgit2/include/git2.h
+  compiler-opts:
+    - '-I/opt/libgit2/include'
+  exclude-all-by-default: true
+  functions:
+    include:
+      - 'git_.*'
+    variadic-arguments:
+      git_libgit2_opts:
+        - [char*]
+        - [char*, char*]
+        - [int]
+        # TODO: more arguments
+  structs:
+    include:
+      - 'git_.*'
+  enums:
+    include:
+      - 'git_.*'
+  macros:
+    include:
+      - 'GIT_.*'
+  ffi-native:
